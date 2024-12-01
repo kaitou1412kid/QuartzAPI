@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: job-schedule
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://localhost:3306/Job
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: spring-boot-quartz
+            instanceId: AUTO
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 25
+            threadPriority: 5
+          jobStore:
+            misfireThreshold: 1000
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            useProperties: true
+            tablePrefix: QRTZ_
+            isClustered: true
+            clusterCheckinInterval: 1000
+
