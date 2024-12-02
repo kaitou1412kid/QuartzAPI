@@ -42,7 +42,11 @@ public class SchedulerJobService {
         SchedulerJobInfo schedulerJobInfo = new SchedulerJobInfo();
         schedulerJobInfo = schedulerMapper.mapData(schedulerRequestDTO);
         if(schedulerJobInfo.getCronExpression().length() > 0){
-            schedulerJobInfo.setJobClass(MailJob.class.getName());
+            if(schedulerJobInfo.getJobName().equals("MAIL")){
+                schedulerJobInfo.setJobClass(MailJob.class.getName());
+            }else{
+                schedulerJobInfo.setJobClass(SimpleCronJob.class.getName());
+            }
             schedulerJobInfo.setCronJob(true);
         }else{
             schedulerJobInfo.setJobClass(SimpleJob.class.getName());
