@@ -29,4 +29,19 @@ public class SchedulerController {
             return "error";
         }
     }
+
+    @PostMapping("/pause")
+    public String pauseScheduler(@RequestBody SchedulerRequestDTO schedulerJobInfoRequest) {
+        try{
+            boolean isPaused = schedulerJobService.pauseJob(schedulerJobInfoRequest);
+            if(isPaused){
+                return "success";
+            }else{
+                return "error";
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return "error";
+        }
+    }
 }

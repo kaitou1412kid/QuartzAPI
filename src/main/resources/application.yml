@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: file:.env[.properties]
   application:
     name: job-schedule
   jpa:
@@ -16,5 +18,16 @@ spring:
     job-store-type: jdbc
     jdbc:
       initialize-schema: always
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 

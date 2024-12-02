@@ -4,6 +4,7 @@ import com.kritagya.jobschedule.config.SchedulerConfig;
 import com.kritagya.jobschedule.dto.mapper.SchedulerMapper;
 import com.kritagya.jobschedule.dto.request.SchedulerRequestDTO;
 import com.kritagya.jobschedule.entity.SchedulerJobInfo;
+import com.kritagya.jobschedule.job.MailJob;
 import com.kritagya.jobschedule.job.SimpleCronJob;
 import com.kritagya.jobschedule.job.SimpleJob;
 import com.kritagya.jobschedule.repository.SchedulerRepository;
@@ -41,7 +42,7 @@ public class SchedulerJobService {
         SchedulerJobInfo schedulerJobInfo = new SchedulerJobInfo();
         schedulerJobInfo = schedulerMapper.mapData(schedulerRequestDTO);
         if(schedulerJobInfo.getCronExpression().length() > 0){
-            schedulerJobInfo.setJobClass(SimpleCronJob.class.getName());
+            schedulerJobInfo.setJobClass(MailJob.class.getName());
             schedulerJobInfo.setCronJob(true);
         }else{
             schedulerJobInfo.setJobClass(SimpleJob.class.getName());
@@ -130,7 +131,9 @@ public class SchedulerJobService {
         }
     }
 
-    public boolean pauseJob(SchedulerJobInfo schedulerJobInfo){
+    public boolean pauseJob(SchedulerRequestDTO schedulerRequestDTO){
+        SchedulerJobInfo schedulerJobInfo = new SchedulerJobInfo();
+        schedulerJobInfo = schedulerMapper.mapData(schedulerRequestDTO);
         try{
             SchedulerJobInfo getJobInfo = schedulerRepository.findByJobName(schedulerJobInfo.getJobName());
             getJobInfo.setJobStatus("PAUSED");
@@ -144,7 +147,9 @@ public class SchedulerJobService {
         }
     }
 
-    public boolean resumeJob(SchedulerJobInfo schedulerJobInfo){
+    public boolean resumeJob(SchedulerRequestDTO schedulerRequestDTO){
+        SchedulerJobInfo schedulerJobInfo = new SchedulerJobInfo();
+        schedulerJobInfo = schedulerMapper.mapData(schedulerRequestDTO);
         try{
             SchedulerJobInfo getJobInfo = schedulerRepository.findByJobName(schedulerJobInfo.getJobName());
             getJobInfo.setJobStatus("RESUMED");
@@ -158,7 +163,9 @@ public class SchedulerJobService {
         }
     }
 
-    public boolean deleteJob(SchedulerJobInfo schedulerJobInfo){
+    public boolean deleteJob(SchedulerRequestDTO schedulerRequestDTO){
+        SchedulerJobInfo schedulerJobInfo = new SchedulerJobInfo();
+        schedulerJobInfo = schedulerMapper.mapData(schedulerRequestDTO);
         try{
             SchedulerJobInfo getJobInfo = schedulerRepository.findByJobName(schedulerJobInfo.getJobName());
             schedulerRepository.delete(getJobInfo);
