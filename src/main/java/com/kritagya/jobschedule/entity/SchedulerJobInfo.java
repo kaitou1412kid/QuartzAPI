@@ -6,16 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Table(name = "scheduler_job_info")
 public class SchedulerJobInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String jobId;
+    private Long jobId;
     private String jobName;
     private String jobGroup;
     private String jobStatus;
