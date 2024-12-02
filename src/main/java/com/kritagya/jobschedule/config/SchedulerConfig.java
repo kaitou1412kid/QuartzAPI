@@ -44,7 +44,7 @@ public class SchedulerConfig {
         return factory;
     }
 
-    public CronTrigger createCronTrigger(String cronExpression, Date startTime, String triggerName, int misFireInstruction) {
+    public static CronTrigger createCronTrigger(String cronExpression, Date startTime, String triggerName, int misFireInstruction) {
         CronTriggerFactoryBean factoryBean = new CronTriggerFactoryBean();
         factoryBean.setName(triggerName);
         factoryBean.setStartTime(startTime);
@@ -58,7 +58,7 @@ public class SchedulerConfig {
         return factoryBean.getObject();
     }
 
-    public SimpleTrigger createSimpleTrigger(String triggerName, Date startTime, Long repeatTime, int misFireInstruction){
+    public static SimpleTrigger createSimpleTrigger(String triggerName, Date startTime, Long repeatTime, int misFireInstruction){
         SimpleTriggerFactoryBean factoryBean = new SimpleTriggerFactoryBean();
         factoryBean.setName(triggerName);
         factoryBean.setStartTime(startTime);
@@ -69,7 +69,7 @@ public class SchedulerConfig {
         return factoryBean.getObject();
     }
 
-    public JobDetail createJob(Class<? extends QuartzJobBean> jobClass, boolean isDurable, ApplicationContext applicationContext, String jobName, String jobGroup ){
+    public static JobDetail createJob(Class<? extends QuartzJobBean> jobClass, boolean isDurable, ApplicationContext applicationContext, String jobName, String jobGroup ){
         JobDetailFactoryBean factoryBean = new JobDetailFactoryBean();
         factoryBean.setJobClass(jobClass);
         factoryBean.setDurability(isDurable);
